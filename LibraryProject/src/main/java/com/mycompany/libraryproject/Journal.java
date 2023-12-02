@@ -12,8 +12,8 @@ public class Journal extends Book {
     private int conferenceNo;
     private String conferenceName;
 
-    public Journal(int conferenceNo, String conferenceName, String title, int no, String genre, String version, Person author, BirthDate bdate) {
-        super(title, no, genre, version, author, bdate);
+    public Journal(int conferenceNo, String conferenceName, String title, int no, String genre, String version, Author author, BirthDate bdate,boolean isAvailable,Loan loans) {
+        super(title, no, genre, version, author, bdate,isAvailable,loans);
         this.conferenceNo = conferenceNo;
         this.conferenceName = conferenceName;
     }

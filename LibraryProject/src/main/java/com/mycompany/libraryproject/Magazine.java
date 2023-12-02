@@ -14,8 +14,8 @@ public class Magazine extends Book {
     private int issueNo;
     private Date releaseDate;
 
-    public Magazine(int issueNo, Date releaseDate, String title, int no, String genre, String version, Person author, BirthDate bdate) {
-        super(title, no, genre, version, author, bdate);
+    public Magazine(int issueNo, Date releaseDate, String title, int no, String genre, String version, Author author, BirthDate bdate,boolean isAvailable,Loan loans) {
+        super(title, no, genre, version, author, bdate,isAvailable,loans);
         this.issueNo = issueNo;
         this.releaseDate = releaseDate;
     }

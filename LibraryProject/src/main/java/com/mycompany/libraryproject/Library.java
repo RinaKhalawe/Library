@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.libraryproject;
+import java.time.LocalDate;
 import java.util.ArrayList;
+//import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,11 +13,11 @@ import java.util.List;
  * @author TTC
  */
 public class Library {
-    public List<Book> books;
-    public List<Magazine> magazines;
-    public List<Journal> journals;
-    public List<Author> authors;
-    public List<Student> students;
+    ArrayList<Book> books;
+    ArrayList<Magazine> magazines;
+    ArrayList<Journal> journals;
+    ArrayList<Author> authors;
+    ArrayList<Student> students;
     
     public Library() {
         books = new ArrayList<>();
@@ -25,34 +27,23 @@ public class Library {
         students = new ArrayList<>();
         
     }
-    public List<Book> searchBookByTitle(String title) {
-        List<Book> result = new ArrayList<>();
-        for (Book book : books) {
-            if (book.getTitle().equals(title)) {
-                result.add(book);
-            }
-        }
-        return result;
+    public void addBook(Book book) {
+        books.add(book);
     }
-    public List<Book> searchBookByNo(int bookNo) {
-        List<Book> result = new ArrayList<>();
-        for (Book book : books) {
-            if (bookNo == book.getNo()) {
-                result.add(book);
-                break;
-            }
-        }
-        return result;
+    public void addStudent(Student student) {
+        students.add(student);
     }
-    public List<Book> searchBookByAuthor(String author) {
-        List<Book> result = new ArrayList<>();
-        for (Book book : books) {
-            if (book.getAuthor().getName().equals(author)) {
-                result.add(book);
-            }
-        }
-        return result;
+    public void addJournal(Journal journal) {
+        journals.add(journal);
     }
+    public void addMagazine(Magazine magazine) {
+        magazines.add(magazine);
+    }
+    public void addAuthor(Author author) {
+        authors.add(author);
+    }
+    
+   
     public List<Book> showAvailableBooks() {
         List<Book> result = new ArrayList<>();
         for (Book book : books) {
@@ -63,7 +54,7 @@ public class Library {
         return result;
     }
     public List<Loan> checkBookLoans() {
-        List<Loan> result = new ArrayList<>();
+        ArrayList<Loan> result = new ArrayList<>();
         for (Student student : students) {
             for (Loan loan : student.getLoans()) {
                 if (loan.getDueDate() == null) {
@@ -72,6 +63,22 @@ public class Library {
             }
         }
         return result;
+    }
+    public void borrowBook(Student student, Book book) throws LoanLimitExceeded, BookNotAvailable {
+        // Check if the student has already borrowed 3 books
+        if (student.getLoans().size() >= 3) {
+            throw new LoanLimitExceeded("The student has already borrowed 3 books and cannot borrow any more.");
+        }
+
+        // Check if the book is available for loan
+        if (!book.isAvailable()) {
+            throw new BookNotAvailable("The book is not available for loan at this time.");
+        }
+
+        // Create a loan record and add it to the student's loan list and the book's loan list
+        Loan loan = new Loan(student, book,LocalDate.now(),LocalDate.now().plusDays(5));
+        student.addLoan(loan);
+        book.addLoan(loan);
     }
 }
 

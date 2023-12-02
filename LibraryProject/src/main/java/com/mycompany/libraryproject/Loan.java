@@ -4,24 +4,65 @@
  */
 package com.mycompany.libraryproject;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  *
  * @author TTC
  */
 public class Loan {
-    private Date dueDate;
+    private LocalDate dueDate;
+    private Student student;
+    private Book book;
+    private LocalDate borrowDate;
+    private LocalDate returnDate;
 
-    public Loan(Date dueDate) {
-        this.dueDate = dueDate;
+    public Loan(Student student, Book book, LocalDate borrowDate, LocalDate returnDate) {
+        //this.dueDate = dueDate;
+        this.student = student;
+        this.book = book;
+        this.borrowDate = borrowDate;
+        this.returnDate = null;
     }
 
-    public Date getDueDate() {
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public LocalDate getBorrowDate() {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(LocalDate borrowDate) {
+        this.borrowDate = borrowDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(LocalDate returnDate) {
+        this.returnDate = returnDate;
+    }
+
+
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
     

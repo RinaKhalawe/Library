@@ -4,6 +4,9 @@
  */
 package com.mycompany.libraryproject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author TTC
@@ -13,10 +16,23 @@ public class Book implements Display {
     private int no;
     private String genre;
     private String version;
-    private Person author;
+    private Author author;
     private BirthDate bdate;
+    private boolean isAvailable;
+    private List<Loan> loans;
 
-    public Book(String title, int no, String genre, String version, Person author, BirthDate bdate) {
+    public Book(String title, int no, String genre, String version, Author author, BirthDate bdate,boolean isAvailable,Loan loans) {
+        this.title = title;
+        this.no = no;
+        this.genre = genre;
+        this.version = version;
+        this.author = author;
+        this.bdate = bdate;
+        this.isAvailable=true;
+        this.loans = new ArrayList<>();
+    }
+
+    public Book(String title, int no, String genre, String version, Author author, BirthDate bdate) {
         this.title = title;
         this.no = no;
         this.genre = genre;
@@ -24,6 +40,17 @@ public class Book implements Display {
         this.author = author;
         this.bdate = bdate;
     }
+
+    
+
+    public boolean isIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+    
 
     public String getTitle() {
         return title;
@@ -57,11 +84,11 @@ public class Book implements Display {
         this.version = version;
     }
 
-    public Person getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(Person author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 
@@ -71,6 +98,15 @@ public class Book implements Display {
 
     public void setBdate(BirthDate bdate) {
         this.bdate = bdate;
+    }
+    
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void addLoan(Loan loan) {
+        loans.add(loan);
+        isAvailable = false;
     }
 
     @Override
@@ -85,6 +121,7 @@ public class Book implements Display {
     public boolean isAvailable() {
         throw new UnsupportedOperationException("The Book is not available yet!.");
     }
+    
     
     
 }
