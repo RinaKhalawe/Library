@@ -4,6 +4,7 @@
 package com.mycompany.libraryproject;
 
 //import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,25 +15,28 @@ import java.util.Scanner;
  */
 public class LibraryProject {
 
-    public static ArrayList<Loan> main(String[] args) {
+    public static void main(String[] args) {
         System.out.println("Welcome to my library ");
-        ArrayList<Book> book = new ArrayList<>();
-        ArrayList<Loan> loan = new ArrayList<>();
-        ArrayList<Student> student = new ArrayList<>();
-        ArrayList<Library> library = new ArrayList<>();
-        ArrayList<Loan> result = new ArrayList<>();
+        Library l1= new Library ();
         int choice;
         boolean found = false;
         int no;
         Scanner input = new Scanner(System.in);
         System.out.println("The Library Menu :");
-        System.out.println("1. Add Books\n2. Add Student\n3. search Book By Title\n 4. search Book By no\n 5. 4. search Book By Author Name\n 6. Check Book Loan  ");
+        System.out.println("""
+                           1. Add Books
+                           2. Add Student
+                           3. search Book By Title
+                           4. search Book By no
+                           5. search Book By Author Name
+                           6. Check Book Loan
+                           7. EXIT """);
 
         System.out.print("Enter your choice: ");
         choice = input.nextInt();
 
         switch (choice) {
-            case 1:
+            case 1 -> {
                 System.out.print("Enter book title: ");
                 String title = input.next();
                 System.out.print("Enter book number: ");
@@ -45,11 +49,12 @@ public class LibraryProject {
                 Author author = new Author(input.nextInt(), input.next(), input.next(), new BirthDate(input.nextInt(), input.nextInt(), input.nextInt()));
                 System.out.print("Enter book date (dd-MM-yyyy): ");
                 BirthDate date = new BirthDate(input.nextInt(), input.nextInt(), input.nextInt());
-                book.add(new Book(title, number, genre, version, author, date));
+                Book book =(new Book(title, number, genre, version, author, date));
+                l1.addBook(book);
                 System.out.println("Book added successfully!");
-                break;
+            }
 
-            case 2:
+            case 2 -> {
                 System.out.print("Enter student id: ");
                 int id = input.nextInt();
                 System.out.print("Enter student name: ");
@@ -60,15 +65,15 @@ public class LibraryProject {
                 String major = input.next();
                 System.out.print("Enter student birth date (yyyy-MM-dd): ");
                 BirthDate bdate = new BirthDate(input.nextInt(), input.nextInt(), input.nextInt());
-                student.add(new Student(id, name, address, major, bdate));
+                l1.addStudent(new Student(id, name, address, major, bdate));
                 System.out.println("Student added successfully!");
-                break;
+            }
 
-            case 3:
+            case 3 -> {
                 System.out.println("Enter your Book title :");
-                title = input.next();
-                for (int i = 0; i < book.size(); i++) {
-                    Book b = book.get(i);
+                String title = input.next();
+                for (int i = 0; i < l1.books.size(); i++) {
+                    Book b = l1.books.get(i);
                     if (title.equals(b.getTitle())) {
                         found = true;
                         System.out.println("Book with this " + title + " is found\n");
@@ -78,14 +83,13 @@ public class LibraryProject {
                     }
                     break;
                 }
+            }
 
-                break;
-
-            case 4:
+            case 4 -> {
                 System.out.println("Enter your Book no :");
                 no = input.nextInt();
-                for (int i = 0; i < book.size(); i++) {
-                    Book b = book.get(i);
+                for (int i = 0; i < l1.books.size(); i++) {
+                    Book b = l1.books.get(i);
                     if (no != b.getNo()) {
                         System.out.println("Book with this " + no + " is not exist!\n");
                     } else {
@@ -95,12 +99,12 @@ public class LibraryProject {
                     }
                     break;
                 }
-                break;
-            case 5:
+            }
+            case 5 -> {
                 System.out.println("Enter your Book Author Name :");
-                name = input.next();
-                for (int i = 0; i < book.size(); i++) {
-                    Book b = book.get(i);
+                String name = input.next();
+                for (int i = 0; i < l1.books.size(); i++) {
+                    Book b = l1.books.get(i);
                     if (name.equals(b.getAuthor().getName())) {
                         System.out.println("Book with Author " + name + " is not exist!\n");
                     } else {
@@ -110,21 +114,23 @@ public class LibraryProject {
                     }
                     break;
                 }
-                break;
+            }
 
-            case 6:
-
-                if (loan.size() < 3) {
+            case 6 -> {
+                l1.checkBookLoans();
+                
+                if (l1.loans.size() < 3) {
                     System.out.println("there is a space to add loans book");
-                   
+                } else {
+                    System.out.println("there is no space to add loans book");
                 }
-                   break;
-                default:
-                System.out.println("Invalid choice !!!");
-                break;
+            }
+            case 7 -> System.exit(0);
+
+                default -> System.out.println("Invalid choice !!!");
            
         }
-        return null;
+       
     }
 }
         

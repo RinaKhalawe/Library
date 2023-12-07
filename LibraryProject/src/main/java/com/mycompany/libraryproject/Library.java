@@ -18,6 +18,7 @@ public class Library {
     ArrayList<Journal> journals;
     ArrayList<Author> authors;
     ArrayList<Student> students;
+    ArrayList<Loan> loans;
     
     public Library() {
         books = new ArrayList<>();
@@ -25,6 +26,7 @@ public class Library {
         journals = new ArrayList<>();
         authors = new ArrayList<>();
         students = new ArrayList<>();
+        loans= new ArrayList();
         
     }
     public void addBook(Book book) {
@@ -64,22 +66,7 @@ public class Library {
         }
         return result;
     }
-    public void borrowBook(Student student, Book book) throws LoanLimitExceeded, BookNotAvailable {
-        // Check if the student has already borrowed 3 books
-        if (student.getLoans().size() >= 3) {
-            throw new LoanLimitExceeded("The student has already borrowed 3 books and cannot borrow any more.");
-        }
-
-        // Check if the book is available for loan
-        if (!book.isAvailable()) {
-            throw new BookNotAvailable("The book is not available for loan at this time.");
-        }
-
-        // Create a loan record and add it to the student's loan list and the book's loan list
-        Loan loan = new Loan(student, book,LocalDate.now(),LocalDate.now().plusDays(5));
-        student.addLoan(loan);
-        book.addLoan(loan);
-    }
+    
 }
 
 
